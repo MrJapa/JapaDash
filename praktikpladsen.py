@@ -15,7 +15,7 @@ import os
 from os import path
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 options = Options()
-options.headless = False
+options.headless = True
 driver = webdriver.Chrome(executable_path='chromedriver.exe',options=options)
 driver.get('https://pms.praktikpladsen.dk/soeg-opslag/0/Data-%20og%20kommunikationsuddannelsen/Datatekniker%20med%20speciale%20i%20programmering?aftaleFilter=alle&medarbejdereFilter=alle&adresse=0a3f50ca-f5a5-32b8-e044-0003ba298018&afstand=20')
 
@@ -42,3 +42,20 @@ def website():
             pass
     except:
         pass
+    driver.quit()
+
+def output_result():
+    try:
+        result
+        result = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((
+                By.XPATH,'//*[@id="resultater"]/div[1]/div/p')))
+        result = result.text
+        print(result)
+        driver.quit()
+    except:
+        pass
+    driver.quit()
+
+
+output_result()
