@@ -87,9 +87,19 @@ steamout = output(steamurl,'//*[@id="application_root"]/div/div/div[2]/div/div/d
 steamresult = Label(rootcanvas,bg='#1B2222',text=output.output_result(steamout)).place(x=1100,y=450)
 
 steamout2 = output(steamurl,'//*[@id="application_root"]/div/div/div[2]/div/div/div[2]/div/div[2]/div/a/div/div/div[1]/div[2]/div[2]')
-steamresult2 = Label(rootcanvas,underline=1,bg='#1B2222',text=output.output_result(steamout2)).place(x=1100,y=475)
+steamresult2 = Label(rootcanvas,bg='#1B2222',text=output.output_result(steamout2)).place(x=1100,y=475)
 steam = PhotoImage(file='images/steam.png')
 steam_button = Button(text="",image=steam,highlightthickness=0,bd=0,Command=None)
 steam_canvas = rootcanvas.create_window(1100,350,anchor="nw",window=steam_button)
+
+####!NYHEDER
+Label(rootcanvas,bg='#1B2222',text="Dagens coronatal:").place(x=500,y=675)
+covidurl = 'https://nyheder.tv2.dk/samfund/dagens-coronatal-overblik-over-smittede-indlagte-og-doede'
+covidout = output(covidurl,'//*[@id="main"]/article/div[2]/div/div/div[2]/div/div[2]/div/table/tbody/tr[1]/th[1]')
+covidresult = Label(rootcanvas,bg='#1B2222',text=output.output_result(covidout)).place(x=500,y=700)
+
+covid = PhotoImage(file="images/covid.png")
+covid_button = Button(text="",image=covid,highlightthickness=0,bd=0,Command=None)
+covid_canvas = rootcanvas.create_window(500,600,anchor="nw",window=covid_button)
 
 root.mainloop()
