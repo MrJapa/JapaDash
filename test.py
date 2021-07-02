@@ -1,20 +1,15 @@
-import _thread
-import time
+from tkinter import *
+from tkvideo import tkvideo
+import os
+from os import path
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# Define a function for the thread
-def print_time( threadName, delay):
-   count = 0
-   while count < 5:
-      time.sleep(delay)
-      count += 1
-      print("%s: %s" % ( threadName, time.ctime(time.time()) ))
+root = Tk()
+root.overrideredirect(1)
+root.geometry("500x500+710+290")
+my_label = Label(root,bd=0,highlightthickness=0)
+my_label.pack()
+player = tkvideo("images/loading.avi", my_label, loop = 1, size = (500,500))
+player.play()
 
-# Create two threads as follows
-try:
-   _thread.start_new_thread( print_time, ("Thread-1", 1, ) )
-   _thread.start_new_thread( print_time, ("Thread-2", 1, ) )
-except:
-   print("Error: unable to start thread")
-
-while 1:
-   pass
+root.mainloop()

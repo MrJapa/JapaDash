@@ -67,8 +67,8 @@ def league():
     lolout = output(lolurl,'//*[@id="gatsby-focus-wrapper"]/div/div[2]/div/div[1]/div/ol/li[1]/a/article/div[2]/div/h2')
     lolresult = Label(rootcanvas,bg='#1B2222',text=output.output_result(lolout)).place(x=500,y=500)
 
-Label(rootcanvas,bg='#1B2222',text="Newest game update:").place(x=500,y=425)
-Label(rootcanvas,bg='#1B2222',text="Newest League patch:").place(x=500,y=475)
+Label(rootcanvas,bg='#1B2222',text="Latest game update:").place(x=500,y=425)
+Label(rootcanvas,bg='#1B2222',text="Latest League patch:").place(x=500,y=475)
 lol = PhotoImage(file='images/lol.png')
 lol_button = Button(text="",image=lol,highlightthickness=0,bd=0,command=None)
 lol_canvas = rootcanvas.create_window(500,350,anchor="nw",window=lol_button)
@@ -111,5 +111,8 @@ def threads():
     p1.start();p2.start();p3.start();p4.start()
 if __name__=='__main__':
     threads()
+
+    while threads is True:
+        print("True")
 
     root.mainloop()
