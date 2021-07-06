@@ -58,6 +58,26 @@ rootcanvas.create_image(0,0,image=bg,anchor='nw')
 logo = PhotoImage(file="images/icon.png")
 logolabel = Label(rootcanvas,image=logo,bd=0,highlightthickness=0).place(x=350,y=350,anchor="center")
 
+def loloption():
+    global loloptions
+    loloptions = Toplevel()
+    loloptions.geometry("450x350+710+290")
+    loloptions.title('LoL Options')
+    loloptions.iconbitmap('images/icon.ico')
+    style = Style(theme='japa')
+    loloptions.overrideredirect(1)
+
+    loloptionsbg = PhotoImage(file='images/small.png')
+    loloptionlabel = Label(loloptions, image=loloptionsbg)
+    loloptionlabel.place(x=0,y=0)
+
+    exitimg = PhotoImage(file="images/exit.png")
+
+    exit_button = ttk.Button(loloptions, text="Exit",command=exits)
+    exit_button.pack(expand=False,pady=25)
+
+
+    loloptions.mainloop()
 ####!LEAGUE
 def league():
     lolnew = 'https://euw.leagueoflegends.com/en-us/news/game-updates/'
@@ -71,7 +91,7 @@ def league():
 Label(rootcanvas,bg='#1B2222',text="Latest game update:").place(x=500,y=425)
 Label(rootcanvas,bg='#1B2222',text="Latest League patch:").place(x=500,y=475)
 lol = PhotoImage(file='images/lol.png')
-lol_button = Button(text="",image=lol,highlightthickness=0,bd=0,command=None)
+lol_button = Button(text="",image=lol,highlightthickness=0,bd=0,command=loloption)
 lol_canvas = rootcanvas.create_window(500,350,anchor="nw",window=lol_button)
 ####!TECHCOLLEGE
 def techcollege():
@@ -133,17 +153,8 @@ def threads():
     p5.setDaemon(True)
     p1.start();p2.start();p3.start();p4.start();p5.start()
 
-def loading():
-    load = Tk()
-    load.overrideredirect(1)
-    load.geometry("500x500+710+290")
-    label = Label(load,bd=0,highlightthickness=0)
-    label.pack()
-    player = tkvideo("images/loading.avi", label, size = (500,500))
-    player.play()
-    threads()
-    time.sleep(5)
-    root.mainloop()
+def exits():
+    loloptions.destroy()
 
 if __name__=='__main__':
     threads()
