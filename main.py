@@ -5,6 +5,7 @@ import tkinter.font as font
 import webbrowser
 from selenium.webdriver.remote import file_detector
 from selenium.webdriver.remote.command import Command
+from tkvideo.tkvideo import tkvideo
 import winshell
 import win32com.client
 import keyboard
@@ -46,7 +47,7 @@ resolution = '{}x{}'.format(screen_width,screen_height)
 root.geometry(resolution)
 root.state('zoomed')
 root.title('JapaDash')
-root.iconbitmap('')
+root.iconbitmap('images/icon.ico')
 #root.overrideredirect(1)
 root.resizable(True,True)
 style = Style(theme='japa')
@@ -103,16 +104,47 @@ opggimg = PhotoImage(file="images/opgg.png")
 opgg_button = Button(text="",image=opggimg,highlightthickness=0,bd=0,Command=None)
 opgg_canvas = rootcanvas.create_window(500,600,anchor="nw",window=opgg_button)
 
+def github():
+    git = 'https://github.com/MrJapa'
+    gitrepoout = output(git, '//*[@id="js-pjax-container"]/div[1]/div/div/div[2]/div/nav/a[2]')
+    gitreporesult = Label(rootcanvas,bg="#1B2222",text=output.output_result(gitrepoout)).place(x=1100,y=450)
+
+    gitconout = output(git, '//*[@id="js-pjax-container"]/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div/h2')
+    gitconresult = Label(rootcanvas,bg="#1B2222",text=output.output_result(gitconout)).place(x=1100,y=475)
+    
+    gitactout = output(git, '//*[@id="js-contribution-activity"]/div[2]/div/div')
+    gitactresult = Label(rootcanvas,bg="#1B2222",text=output.output_result(gitactout)).place(x=1100,y=500)
+
+Label(rootcanvas,bg="#1B2222",text="Info:").place(x=1100,y=425)
+gitimg = PhotoImage(file="images/github.png")
+git_button = Button(text="",image=gitimg,highlightthickness=0,bd=0,command=None)
+git_canvas = rootcanvas.create_window(1100,350,anchor="nw",window=git_button)
+
 def threads():
     p1 = threading.Thread(target=league)
+    p1.setDaemon(True)
     p2 = threading.Thread(target=techcollege)
+    p2.setDaemon(True)
     p3 = threading.Thread(target=opgg)
+    p3.setDaemon(True)
     p4 = threading.Thread(target=nyheder)
-    p1.start();p2.start();p3.start();p4.start()
+    p4.setDaemon(True)
+    p5 = threading.Thread(target=github)
+    p5.setDaemon(True)
+    p1.start();p2.start();p3.start();p4.start();p5.start()
+
+def loading():
+    load = Tk()
+    load.overrideredirect(1)
+    load.geometry("500x500+710+290")
+    label = Label(load,bd=0,highlightthickness=0)
+    label.pack()
+    player = tkvideo("images/loading.avi", label, size = (500,500))
+    player.play()
+    threads()
+    time.sleep(5)
+    root.mainloop()
+
 if __name__=='__main__':
     threads()
-
-    while threads is True:
-        print("True")
-
     root.mainloop()
