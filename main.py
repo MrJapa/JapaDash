@@ -33,6 +33,7 @@ from selenium import *
 from os import path, terminal_size
 from webout import output
 import threading
+from tooltip import CreateToolTip
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 options = Options()
